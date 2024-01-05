@@ -1,12 +1,12 @@
 // Creating an instance of express application
 const express = require('express');
 const app = express(); 
-// Mounting the route
-const tasks = require('./routes/tasks');
-const connectDB = require('./db/connect')
+const tasks = require('./routes/tasks');    // Mounting the route
+const connectDB = require('./db/connect')   // DB Connection
 require('dotenv').config();
 
-// middleware
+// Middleware
+app.use(express.static('public'))
 app.use(express.json()); // for reading json from Body
 
 
@@ -16,13 +16,16 @@ app.use(express.json()); // for reading json from Body
 
 app.use('/api/v1/tasks', tasks);
 
-const port = 3000;
+const port = process.env.PORT;
 
 const start = async () =>{
     try {
+        // Asychronous operation
         await connectDB(process.env.MONGO_URI)
-        app.listen(port, () => {console.log(`Server is running on ${port}...`)});
-        //app.list(port, callbackFunction)
+        app.listen(port, () => {
+            console.log(`Server is running on ${port}...`)
+        });
+        //app.listen(port, callbackFunction)
 
     } catch (error) {
         console.log(error);

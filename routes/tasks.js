@@ -6,6 +6,7 @@ const {getAllTasks, createTask, getTask, updateTask, deleteTask} = require('../c
 // Get all and Posting new
 router.route('/').get(getAllTasks);
 router.route('/').post(createTask);
+
 // Update, GetOne, Delete
 router.route('/:id').get(getTask);
 router.route('/:id').patch(updateTask);
